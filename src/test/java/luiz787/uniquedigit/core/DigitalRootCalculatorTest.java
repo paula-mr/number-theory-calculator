@@ -16,7 +16,7 @@ class DigitalRootCalculatorTest {
   }
 
   @Test
-  void calculate_givenNIsNegative_ShouldThrowIllegalArgumentExceptionWithExpectedMessage() {
+  void calculate_GivenNIsNegative_ShouldThrowIllegalArgumentExceptionWithExpectedMessage() {
     final String n = "-2";
     final int k = 1;
 
@@ -27,7 +27,7 @@ class DigitalRootCalculatorTest {
   }
 
   @Test
-  void calculate_givenNIsZero_ShouldThrowIllegalArgumentExceptionWithExpectedMessage() {
+  void calculate_GivenNIsZero_ShouldThrowIllegalArgumentExceptionWithExpectedMessage() {
     final String n = "0";
     final int k = 1;
 
@@ -38,7 +38,7 @@ class DigitalRootCalculatorTest {
   }
 
   @Test
-  void calculate_givenKIsNegative_ShouldThrowIllegalArgumentExceptionWithExpectedMessage() {
+  void calculate_GivenKIsNegative_ShouldThrowIllegalArgumentExceptionWithExpectedMessage() {
     final String n = "1337";
     final int k = -1;
 
@@ -49,7 +49,7 @@ class DigitalRootCalculatorTest {
   }
 
   @Test
-  void calculate_givenKIsZero_ShouldThrowIllegalArgumentExceptionWithExpectedMessage() {
+  void calculate_GivenKIsZero_ShouldThrowIllegalArgumentExceptionWithExpectedMessage() {
     final String n = "1337";
     final int k = 0;
 
@@ -61,7 +61,7 @@ class DigitalRootCalculatorTest {
 
   @Test
   void
-      calculate_givenKIsGreaterThanTenToTheFive_ShouldThrowIllegalArgumentExceptionWithExpectedMessage() {
+      calculate_GivenKIsGreaterThanTenToTheFive_ShouldThrowIllegalArgumentExceptionWithExpectedMessage() {
     final String n = "1337";
     final int k = (int) Math.pow(10, 5) + 1;
 
@@ -73,7 +73,7 @@ class DigitalRootCalculatorTest {
 
   @Test
   void
-      calculate_givenNADecimalStringWithDot_ShouldThrowIllegalArgumentExceptionWithExpectedMessage() {
+      calculate_GivenNADecimalStringWithDot_ShouldThrowIllegalArgumentExceptionWithExpectedMessage() {
     final String n = "123.456";
     final int k = 1;
 
@@ -85,7 +85,7 @@ class DigitalRootCalculatorTest {
 
   @Test
   void
-      calculate_givenNIsADecimalStringWithComma_ShouldThrowIllegalArgumentExceptionWithExpectedMessage() {
+      calculate_GivenNIsADecimalStringWithComma_ShouldThrowIllegalArgumentExceptionWithExpectedMessage() {
     final String n = "123,456";
     final int k = 1;
 
@@ -97,7 +97,7 @@ class DigitalRootCalculatorTest {
 
   @Test
   void
-      calculate_givenNIsNotANumericString_ShouldThrowIllegalArgumentExceptionWithExpectedMessage() {
+      calculate_GivenNIsNotANumericString_ShouldThrowIllegalArgumentExceptionWithExpectedMessage() {
     final String n = "Teste";
     final int k = 1;
 
@@ -108,7 +108,7 @@ class DigitalRootCalculatorTest {
   }
 
   @Test
-  void GivenNHasASingleDigitAndKIsOne_ShouldReturnK() {
+  void calculate_GivenNHasASingleDigitAndKIsOne_ShouldReturnK() {
     final String n = "1";
     final int k = 1;
 
@@ -124,7 +124,7 @@ class DigitalRootCalculatorTest {
   }
 
   @Test
-  void calculate() {
+  void calculate_GivenNEquals9875AndKEquals4_ShouldReturn8() {
     final String n = "9875";
     final int k = 4;
 
