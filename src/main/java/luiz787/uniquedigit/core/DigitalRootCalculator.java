@@ -1,7 +1,10 @@
 package luiz787.uniquedigit.core;
 
+import org.springframework.stereotype.Component;
+
 import java.math.BigInteger;
 
+@Component
 public class DigitalRootCalculator {
   /**
    * Calculates the Digital Root of <code>p</code>, which is <code>n</code>, concatenated with
