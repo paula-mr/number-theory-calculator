@@ -4,7 +4,8 @@ import java.math.BigInteger;
 
 public class DigitalRootCalculator {
   /**
-   * Calculates the Digital Root of <code>n</code>, concatenated with itself <code>k</code> times.
+   * Calculates the Digital Root of <code>p</code>, which is <code>n</code>, concatenated with
+   * itself <code>k</code> times.
    *
    * @param n the original number, 1 <= n <= 10^1000000
    * @param k the amount of times to concatenate <code>n</code> with itself, 1 <= k <= 10^5
@@ -22,11 +23,14 @@ public class DigitalRootCalculator {
       throw new IllegalArgumentException("n must be a numeric string between 1 and 10^1000000");
     }
 
-    final var concatenatedNumber = n.repeat(k);
-    final var bigIntegerRepresentation = new BigInteger(concatenatedNumber);
-
-    final int moduloNine = bigIntegerRepresentation.mod(BigInteger.valueOf(9L)).intValue();
+    final BigInteger p = constructP(n, k);
+    final int moduloNine = p.mod(BigInteger.valueOf(9L)).intValue();
     return moduloNine == 0 ? 9 : moduloNine;
+  }
+
+  private BigInteger constructP(final String n, final int k) {
+    final var concatenatedNumber = n.repeat(k);
+    return new BigInteger(concatenatedNumber);
   }
 
   private boolean isNValid(final String n) {
