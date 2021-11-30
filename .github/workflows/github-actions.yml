@@ -3,8 +3,34 @@ name: Java CI
 on: [push]
 
 jobs:
-  build-and-test:
+  build-and-test-on-ubuntu:
     runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 14
+        uses: actions/setup-java@v2
+        with:
+          java-version: "14"
+          distribution: "adopt"
+      - name: Build and test with Maven
+        run: mvn --batch-mode --update-snapshots verify
+
+  build-and-test-on-windows:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 14
+        uses: actions/setup-java@v2
+        with:
+          java-version: "14"
+          distribution: "adopt"
+      - name: Build and test with Maven
+        run: mvn --batch-mode --update-snapshots verify
+
+  build-and-test-on-macos-big-sur:
+    runs-on: macos-11
 
     steps:
       - uses: actions/checkout@v2
