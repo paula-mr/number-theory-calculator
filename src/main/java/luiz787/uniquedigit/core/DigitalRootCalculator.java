@@ -25,7 +25,8 @@ public class DigitalRootCalculator {
     final var concatenatedNumber = n.repeat(k);
     final var bigIntegerRepresentation = new BigInteger(concatenatedNumber);
 
-    return bigIntegerRepresentation.mod(BigInteger.valueOf(9L)).intValue();
+    final int moduloNine = bigIntegerRepresentation.mod(BigInteger.valueOf(9L)).intValue();
+    return moduloNine == 0 ? 9 : moduloNine;
   }
 
   private boolean isNValid(final String n) {

@@ -130,4 +130,12 @@ class DigitalRootCalculatorTest {
 
     assertEquals(8, calculator.calculate(n, k));
   }
+
+  @Test
+  void givenNIsDivisibleByNine_ShouldReturn9() {
+    final String n = "18";
+    final int k = 1;
+
+    assertEquals(9, calculator.calculate(n, k));
+  }
 }
