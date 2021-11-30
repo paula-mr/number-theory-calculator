@@ -4,6 +4,7 @@ on: [push]
 
 jobs:
   build-and-test-on-ubuntu:
+    name: Build and Test Ubuntu
     runs-on: ubuntu-latest
 
     steps:
@@ -17,6 +18,7 @@ jobs:
         run: mvn --batch-mode --update-snapshots verify
 
   build-and-test-on-windows:
+    name: Build and Test Windows
     runs-on: windows-latest
 
     steps:
@@ -30,6 +32,7 @@ jobs:
         run: mvn --batch-mode --update-snapshots verify
 
   build-and-test-on-macos-big-sur:
+    name: Build and Test MacOS
     runs-on: macos-11
 
     steps:
