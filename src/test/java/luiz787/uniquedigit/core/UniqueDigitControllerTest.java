@@ -15,8 +15,8 @@ class UniqueDigitControllerTest {
 
   @Mock private DigitalRootCalculator calculator;
   private UniqueDigitController uniqueDigitController;
-  private DigitalCalculationRepository digitalCalculationRepository;
-  private UserRepository userRepository;
+  @Mock private DigitalCalculationRepository digitalCalculationRepository;
+  @Mock private UserRepository userRepository;
 
   @BeforeEach
   public void setup() {
