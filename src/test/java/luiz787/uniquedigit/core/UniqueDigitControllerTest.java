@@ -15,11 +15,13 @@ class UniqueDigitControllerTest {
 
   @Mock private DigitalRootCalculator calculator;
   private UniqueDigitController uniqueDigitController;
+  private DigitalCalculationRepository digitalCalculationRepository;
+  private UserRepository userRepository;
 
   @BeforeEach
   public void setup() {
     MockitoAnnotations.initMocks(this);
-    uniqueDigitController = new UniqueDigitController(calculator);
+    uniqueDigitController = new UniqueDigitController(calculator, digitalCalculationRepository, userRepository);
   }
 
   @Test
