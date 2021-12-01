@@ -1,4 +1,4 @@
-package luiz787.uniquedigit.core.uniquedigit;
+package luiz787.uniquedigit.core;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -38,7 +38,7 @@ public class UniqueDigitController {
       @RequestParam(required = false) final Long userId) {
     final int result = calculator.calculate(new UniqueDigitCalculationParameters(n, k));
 
-    final var calculation = calculator.builder().n(n).k(k).result(result).build();
+    final var calculation = UniqueDigitCalculation.builder().n(n).k(k).result(result).build();
     repository.save(calculation);
 
     if (userId != null) {
