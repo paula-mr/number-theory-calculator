@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import luiz787.uniquedigit.core.user.UserRepository;
+import luiz787.uniquedigit.core.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +36,7 @@ public class UniqueDigitController {
       @RequestParam final String n,
       @RequestParam final int k,
       @RequestParam(required = false) final Long userId) {
-    final int result = calculator.calculate(new UniqueDigitCalculationParameters(n, k));
+    final int result = calculator.calculate(n, k);
 
     final var calculation = UniqueDigitCalculation.builder().n(n).k(k).result(result).build();
     repository.save(calculation);

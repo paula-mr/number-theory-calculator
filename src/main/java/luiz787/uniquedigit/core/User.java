@@ -5,6 +5,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import luiz787.uniquedigit.core.dto.SaveUserDto;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.OneToMany;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +24,20 @@ public class User {
     private String name;
     @ApiModelProperty(value = "User email")
     private String email;
+
+    @ApiModelProperty(value = "List of calculated unique digits")
+    @OneToMany
+    private List<UniqueDigitCalculation> uniqueDigitsCalculated;
+  
+
+    public User() {
+        uniqueDigitsCalculated = new ArrayList<>();
+      }
+    
+      public void addUniqueDigit(final UniqueDigitCalculation uniqueDigit) {
+        this.uniqueDigitsCalculated.add(uniqueDigit);
+      }
+    
 
     public static User fromSaveUserDto(final SaveUserDto saveUserDto) {
         final var user = new User();
