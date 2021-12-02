@@ -15,12 +15,28 @@ import org.springframework.web.bind.annotation.RestController;
 public class UniqueDigitController {
 
   private final DigitalRootCalculator calculator;
+  private final DigitalRootCalculationRepository repository;
+  private final UserRepository userRepository;
 
   @GetMapping
   public ResponseEntity<Integer> calculateUniqueDigit(
-      @RequestParam final String n, @RequestParam final int k, @RequestParam final Long userId) {
+      @RequestParam final String n,
+      @RequestParam final int k,
+      @RequestParam(required = false) final Long userId) {
     log.info(userId);
     final int result = calculator.calculate(n, k);
+
+    final var calculation = DigitalRootCalculation.builder().n(n).k(k).result(result).build();
+    repository.save(calculation);
+
+    if (userId != null) {
+      final var userOpt = userRepository.findById(userId);
+      userOpt.ifPresent(
+          (user) -> {
+            user.addUniqueDigit(calculation);
+            userRepository.save(user);
+          });
+    }
 
     return ResponseEntity.ok(result);
   }

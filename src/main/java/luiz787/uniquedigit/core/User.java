@@ -9,6 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Entity
 @Data
@@ -21,11 +25,22 @@ public class User {
     private String name;
     @ApiModelProperty(value = "User email")
     private String email;
+    @OneToMany
+    private List<DigitalRootCalculation> uniqueDigitsCalculated;
+
+    public User() {
+        uniqueDigitsCalculated = new ArrayList<>();
+    }
+
+    public void addUniqueDigit(final DigitalRootCalculation uniqueDigit) {
+        this.uniqueDigitsCalculated.add(uniqueDigit);
+    }
 
     public static User fromSaveUserDto(final SaveUserDto saveUserDto) {
         final var user = new User();
         user.setName(saveUserDto.getName());
         user.setEmail(saveUserDto.getEmail());
+        user.setUniqueDigitsCalculated(Collections.emptyList());
         return user;
     }
 
