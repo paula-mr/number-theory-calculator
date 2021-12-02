@@ -8,6 +8,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 
+import java.util.Collections;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,12 +25,13 @@ class UserControllerTest {
   private static final long ID = 42;
 
   @Mock private UserRepository userRepository;
+  @Mock private CryptoUtils cryptoUtils;
   private UserController userController;
 
   @BeforeEach
   public void setup() {
     MockitoAnnotations.initMocks(this);
-    userController = new UserController(userRepository);
+    userController = new UserController(userRepository, cryptoUtils);
   }
 
   @Test
@@ -72,10 +74,12 @@ class UserControllerTest {
     final User expectedUser = new User();
     expectedUser.setEmail("test@email.com");
     expectedUser.setName("Teste");
+    expectedUser.setPublicKey("dummy key");
 
+    when(cryptoUtils.encryptUserData(expectedUser)).thenReturn(expectedUser);
     when(userRepository.save(expectedUser)).thenReturn(expectedUser);
 
-    final var response = userController.create(new SaveUserDto("Teste", "test@email.com"));
+    final var response = userController.create(new SaveUserDto("Teste", "test@email.com", "dummy key"));
 
     assertEquals(HttpStatus.CREATED, response.getStatusCode());
   }
@@ -85,11 +89,14 @@ class UserControllerTest {
     final User expectedUser = new User();
     expectedUser.setEmail("test@email.com");
     expectedUser.setName("Teste");
+    expectedUser.setPublicKey("dummy key");
+    expectedUser.setUniqueDigitsCalculated(Collections.emptyList());
 
-    when(userRepository.findById(ID)).thenReturn(Optional.of(new User()));
+    when(userRepository.findById(ID)).thenReturn(Optional.of(expectedUser));
+    when(cryptoUtils.encryptUserData(any())).thenReturn(expectedUser);
     when(userRepository.save(expectedUser)).thenReturn(expectedUser);
 
-    final var response = userController.update(ID, new SaveUserDto("Teste", "test@email.com"));
+    final var response = userController.update(ID, new SaveUserDto("Teste", "test@email.com", "dummy key"));
 
     assertEquals(HttpStatus.OK, response.getStatusCode());
   }
@@ -98,7 +105,7 @@ class UserControllerTest {
   void update_UserDoesNotExist_ShouldReturnHttpStatus404() {
     when(userRepository.findById(ID)).thenReturn(Optional.empty());
 
-    final var response = userController.update(ID, new SaveUserDto("Teste", "test@email.com"));
+    final var response = userController.update(ID, new SaveUserDto("Teste", "test@email.com", "dummy key"));
 
     assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
   }
@@ -107,7 +114,7 @@ class UserControllerTest {
   void update_UserDoesNotExist_UserRepositorySaveShouldNeverBeCalled() {
     when(userRepository.findById(ID)).thenReturn(Optional.empty());
 
-    userController.update(ID, new SaveUserDto("Teste", "test@email.com"));
+    userController.update(ID, new SaveUserDto("Teste", "test@email.com", "dummy key"));
 
     verify(userRepository, never()).save(any());
   }

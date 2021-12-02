@@ -1,5 +1,6 @@
 package luiz787.uniquedigit.core.dto;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Value;
 
@@ -9,4 +10,6 @@ public class SaveUserDto {
     String name;
     @ApiModelProperty("User email")
     String email;
+    @ApiModelProperty("Public encryption key")
+    String publicKey;
 }

@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import luiz787.uniquedigit.core.dto.SaveUserDto;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,12 +20,17 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @ApiModelProperty(value = "User id")
+    @ApiModelProperty("User id")
     private Long id;
-    @ApiModelProperty(value = "User name")
+    @ApiModelProperty("User name")
+    @Column(length = 1024)
     private String name;
-    @ApiModelProperty(value = "User email")
+    @ApiModelProperty("User email")
+    @Column(length = 1024)
     private String email;
+    @ApiModelProperty("Public encryption key.")
+    @Column(length = 1024)
+    private String publicKey;
     @OneToMany
     private List<DigitalRootCalculation> uniqueDigitsCalculated;
 
@@ -41,6 +47,7 @@ public class User {
         user.setName(saveUserDto.getName());
         user.setEmail(saveUserDto.getEmail());
         user.setUniqueDigitsCalculated(Collections.emptyList());
+        user.setPublicKey(saveUserDto.getPublicKey());
         return user;
     }
 

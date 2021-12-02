@@ -16,6 +16,7 @@ import java.net.URI;
 public class UserController {
 
   private final UserRepository userRepository;
+  private final CryptoUtils crypto;
 
   @GetMapping("/{id}")
   @ApiOperation("Find an user by id.")
@@ -37,15 +38,16 @@ public class UserController {
   @ApiOperation("Create a new user.")
   @ApiResponses({@ApiResponse(code = 201, message = "The created user.", response = User.class)})
   public ResponseEntity<User> create(@RequestBody final SaveUserDto userToCreate) {
-    final User userCreated = userRepository.save(User.fromSaveUserDto(userToCreate));
+    final User encryptedUser = crypto.encryptUserData(User.fromSaveUserDto(userToCreate));
+    final User createdUser = userRepository.save(encryptedUser);
 
     final URI location =
         ServletUriComponentsBuilder.fromCurrentRequest()
             .path("/{id}")
-            .buildAndExpand(userCreated.getId())
+            .buildAndExpand(createdUser.getId())
             .toUri();
 
-    return ResponseEntity.created(location).body(userCreated);
+    return ResponseEntity.created(location).body(createdUser);
   }
 
   @PutMapping("/{id}")
@@ -58,7 +60,8 @@ public class UserController {
       @PathVariable final long id, @RequestBody final SaveUserDto newUserData) {
     return userRepository
         .findById(id)
-        .map((existingUser) -> User.fromSaveUserDtoAndId(newUserData, id))
+        .map((existingUser) -> crypto.encryptUserData(User.fromSaveUserDtoAndId(newUserData, id)))
+        //.map(crypto::encryptUserData)
         .map((userToSave) -> ResponseEntity.ok(userRepository.save(userToSave)))
         .orElseGet(() -> ResponseEntity.notFound().build());
   }

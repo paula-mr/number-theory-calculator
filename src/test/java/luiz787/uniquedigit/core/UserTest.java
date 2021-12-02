@@ -9,7 +9,7 @@ class UserTest {
 
     @Test
     void fromSaveUserDto_shouldSaveNameAndEmailProperly() {
-        final SaveUserDto dto = new SaveUserDto("Teste", "teste@tempmail.com");
+        final SaveUserDto dto = new SaveUserDto("Teste", "teste@tempmail.com", "dummy key");
 
         final var user = User.fromSaveUserDto(dto);
         assertEquals(dto.getName(), user.getName());
@@ -18,7 +18,7 @@ class UserTest {
 
     @Test
     void fromSaveUserDtoAndId_ShouldSaveNameEmailAndIdProperly() {
-        final SaveUserDto dto = new SaveUserDto("Teste", "teste@tempmail.com");
+        final SaveUserDto dto = new SaveUserDto("Teste", "teste@tempmail.com", "dummy key");
         final long id = 42;
 
         final var user = User.fromSaveUserDtoAndId(dto, id);
