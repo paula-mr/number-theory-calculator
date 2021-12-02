@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import java.security.InvalidKeyException;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -44,13 +42,16 @@ public class GlobalExceptionHandler {
 
   @ExceptionHandler(MethodArgumentTypeMismatchException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
-  public Map<String, String> handleMethodArgumentTypeMismatchException(final MethodArgumentTypeMismatchException e) {
+  public Map<String, String> handleMethodArgumentTypeMismatchException(
+      final MethodArgumentTypeMismatchException e) {
+    log.error("MethodArgumentTypeMismatchException caught at GlobalExceptionHandler", e);
     return Map.of(e.getName(), Optional.ofNullable(e.getMessage()).orElse(FALLBACK_MESSAGE));
   }
 
   @ExceptionHandler(IllegalArgumentException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public Map<String, String> handleIllegalArgumentException(final IllegalArgumentException e) {
+    log.error("IllegalArgumentException caught at GlobalExceptionHandler", e);
     return Map.of("message", Optional.ofNullable(e.getMessage()).orElse(FALLBACK_MESSAGE));
   }
 
