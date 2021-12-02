@@ -1,10 +1,12 @@
 package luiz787.uniquedigit.core;
 
 import lombok.extern.log4j.Log4j2;
+import luiz787.uniquedigit.exception.CryptoException;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
 import java.nio.charset.StandardCharsets;
+import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
@@ -15,39 +17,45 @@ import java.util.Base64;
 @Component
 @Log4j2
 public class CryptoUtils {
+
   private PublicKey publicKeyFromBase64String(final String base64) {
-    byte[] rawBytes = Base64.getDecoder().decode(base64);
-    var keySpec = new X509EncodedKeySpec(rawBytes);
+    final byte[] rawBytes = Base64.getDecoder().decode(base64);
+    final var keySpec = new X509EncodedKeySpec(rawBytes);
     try {
-      var keyFactory = KeyFactory.getInstance("RSA");
+      final var keyFactory = KeyFactory.getInstance("RSA");
       return keyFactory.generatePublic(keySpec);
-    } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+    } catch (final NoSuchAlgorithmException e) {
       log.error("Failed to create key", e);
       throw new RuntimeException(e);
+    } catch (final InvalidKeySpecException e) {
+      log.error("Failed to create key", e);
+      throw new CryptoException(e);
     }
   }
 
-  private String encrypt(String data, PublicKey key) {
+  private String encrypt(final String data, final PublicKey key) {
     try {
-      Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+      final Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
       cipher.init(Cipher.ENCRYPT_MODE, key);
       final var encryptedByteArray = Base64.getEncoder().encode(cipher.doFinal(data.getBytes()));
       return new String(encryptedByteArray, StandardCharsets.UTF_8);
-    } catch (Exception e) {
+    } catch (final InvalidKeyException e) {
+      throw new CryptoException(e);
+    } catch (final Exception e) {
       log.error("Failed to encrypt data", e);
       throw new RuntimeException(e);
     }
   }
 
   public User encryptUserData(final User user) {
-      var providedKeyString = user.getPublicKey();
-      PublicKey key = publicKeyFromBase64String(providedKeyString);
-      final var newUser = new User();
-      newUser.setEmail(encrypt(user.getEmail(), key));
-      newUser.setName(encrypt(user.getName(), key));
-      newUser.setPublicKey(user.getPublicKey());
-      newUser.setUniqueDigitsCalculated(user.getUniqueDigitsCalculated());
-      newUser.setId(user.getId());
-      return newUser;
+    final var providedKeyString = user.getPublicKey();
+    final PublicKey key = publicKeyFromBase64String(providedKeyString);
+    final var newUser = new User();
+    newUser.setEmail(encrypt(user.getEmail(), key));
+    newUser.setName(encrypt(user.getName(), key));
+    newUser.setPublicKey(user.getPublicKey());
+    newUser.setUniqueDigitsCalculated(user.getUniqueDigitsCalculated());
+    newUser.setId(user.getId());
+    return newUser;
   }
 }
