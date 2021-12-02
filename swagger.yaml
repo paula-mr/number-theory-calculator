@@ -1,0 +1,208 @@
+swagger: '2.0'
+info:
+  description: Api Documentation
+  version: '1.0'
+  title: Api Documentation
+  termsOfService: 'urn:tos'
+  contact: { }
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0'
+host: 'localhost:8080'
+basePath: /
+tags:
+  - name: unique-digit-controller
+    description: Unique Digit Controller
+  - name: user-controller
+    description: User Controller
+paths:
+  /unique-digit:
+    get:
+      tags:
+        - unique-digit-controller
+      summary: Calculates the unique digit for the provided n and k values.
+      operationId: calculateUniqueDigitUsingGET
+      produces:
+        - '*/*'
+      parameters:
+        - name: k
+          in: query
+          description: k
+          required: true
+          type: integer
+          format: int32
+        - name: 'n'
+          in: query
+          description: 'n'
+          required: true
+          type: string
+        - name: userId
+          in: query
+          description: userId
+          required: false
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Unique digit for the set of parameters.
+          schema:
+            type: integer
+            format: int32
+        '400':
+          description: Invalid parameters provided.
+        '500':
+          description: Internal server error.
+  /users:
+    post:
+      tags:
+        - user-controller
+      summary: Create a new user.
+      operationId: createUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: userToCreate
+          description: New user data
+          required: true
+          schema:
+            $ref: '#/definitions/SaveUserDto'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+        '201':
+          description: The created user.
+  '/users/{id}':
+    get:
+      tags:
+        - user-controller
+      summary: Find an user by id.
+      operationId: findByIdUsingGET
+      produces:
+        - '*/*'
+      parameters:
+        - name: id
+          in: path
+          description: User id
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: The user associated with the id provided.
+          schema:
+            $ref: '#/definitions/User'
+        '404':
+          description: User not found.
+    put:
+      tags:
+        - user-controller
+      summary: Update an existing user.
+      operationId: updateUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: id
+          in: path
+          description: Id of the user to be updated
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: newUserData
+          description: Updated user data
+          required: true
+          schema:
+            $ref: '#/definitions/SaveUserDto'
+      responses:
+        '200':
+          description: The updated user.
+          schema:
+            $ref: '#/definitions/User'
+        '404':
+          description: User not found.
+    delete:
+      tags:
+        - user-controller
+      summary: Delete an user by id.
+      operationId: deleteUsingDELETE
+      produces:
+        - '*/*'
+      parameters:
+        - name: id
+          in: path
+          description: Id of the user to be deleted
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+        '204':
+          description: Deleted user successfully.
+        '404':
+          description: User not found.
+definitions:
+  SaveUserDto:
+    type: object
+    properties:
+      email:
+        type: string
+        example: example@example.com
+        description: User email
+      name:
+        type: string
+        example: José
+        description: User name
+      publicKey:
+        type: string
+        example: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAskZ+N9l2eV2z8aQvpi+3v0REQ1IpnyqQ3pBUl3Do2xQjs6XD7D3W5Tdjp0h4h7ISxgZz0xg5r51GRQ5jynLUDGRnFnmvpgdUqVCJNP3vWobCPMrbo0tWk+Giw3ssJ90uXzteU9vptMkagB/FOZYX80e0hDK8eNUUoq4xM0H6LJHJbV8y0Ukcs/7JSwZkoO0huBVJZWPV/52WmU0ftv0U5U1DY8WUSPrDvSGt9fRAGiTfuqNvEYw1Pkx++WUwq0XDE/6zPJ/jhtm6yuGzcnKhEjtzbLTfexR8zcQbg5IYexWcl8CpC2vWCc2M0TdKbMN1o8J2ECxK6bKpcul4NDInBwIDAQAB
+        description: Public encryption key
+    title: SaveUserDto
+  UniqueDigitCalculation:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      k:
+        type: integer
+        format: int32
+      'n':
+        type: string
+      result:
+        type: integer
+        format: int32
+    title: UniqueDigitCalculation
+  User:
+    type: object
+    properties:
+      email:
+        type: string
+        example: example@example.com
+        description: User email
+      id:
+        type: integer
+        format: int64
+        example: 2
+        description: User id
+      name:
+        type: string
+        example: José
+        description: User name
+      publicKey:
+        type: string
+        example: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAskZ+N9l2eV2z8aQvpi+3v0REQ1IpnyqQ3pBUl3Do2xQjs6XD7D3W5Tdjp0h4h7ISxgZz0xg5r51GRQ5jynLUDGRnFnmvpgdUqVCJNP3vWobCPMrbo0tWk+Giw3ssJ90uXzteU9vptMkagB/FOZYX80e0hDK8eNUUoq4xM0H6LJHJbV8y0Ukcs/7JSwZkoO0huBVJZWPV/52WmU0ftv0U5U1DY8WUSPrDvSGt9fRAGiTfuqNvEYw1Pkx++WUwq0XDE/6zPJ/jhtm6yuGzcnKhEjtzbLTfexR8zcQbg5IYexWcl8CpC2vWCc2M0TdKbMN1o8J2ECxK6bKpcul4NDInBwIDAQAB
+        description: Public encryption key
+      uniqueDigitsCalculated:
+        type: array
+        description: List of calculated unique digits
+        items:
+          $ref: '#/definitions/UniqueDigitCalculation'
+    title: User
