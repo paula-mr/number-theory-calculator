@@ -1,14 +1,16 @@
 package luiz787.uniquedigit.core;
 
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Function;
 
 @Component
+@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class LRUCache<K, V> {
 
   private final Map<K, V> cache = Collections.synchronizedMap(new LimitedCapacityLinkedHashMap<>());
