@@ -23,8 +23,7 @@ public class UniqueDigitController {
       @RequestParam final String n,
       @RequestParam final int k,
       @RequestParam(required = false) final Long userId) {
-    log.info(userId);
-    final int result = calculator.calculate(n, k);
+    final int result = calculator.calculate(new DigitalRootCalculationParameters(n, k));
 
     final var calculation = DigitalRootCalculation.builder().n(n).k(k).result(result).build();
     repository.save(calculation);

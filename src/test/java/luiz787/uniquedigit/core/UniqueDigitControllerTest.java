@@ -34,7 +34,7 @@ class UniqueDigitControllerTest {
   void calculateUniqueDigit_Success_HttpStatusShouldBe200() {
     final String n = "1234";
     final int k = 2;
-    when(calculator.calculate(n, k)).thenReturn(5);
+    when(calculator.calculate(new DigitalRootCalculationParameters(n, k))).thenReturn(5);
 
     final var response = uniqueDigitController.calculateUniqueDigit(n, k, null);
     assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -44,7 +44,7 @@ class UniqueDigitControllerTest {
   void calculateUniqueDigit_Success_ResponseBodyShouldBeTheNumberReturnedByCalculator() {
     final String n = "1234";
     final int k = 2;
-    when(calculator.calculate(n, k)).thenReturn(5);
+    when(calculator.calculate(new DigitalRootCalculationParameters(n, k))).thenReturn(5);
 
     final var response = uniqueDigitController.calculateUniqueDigit(n, k, null);
     assertEquals(5, response.getBody());
@@ -56,7 +56,7 @@ class UniqueDigitControllerTest {
     final int k = 2;
     final long userId = 44;
     when(userRepository.findById(userId)).thenReturn(Optional.of(new User()));
-    when(calculator.calculate(n, k)).thenReturn(5);
+    when(calculator.calculate(new DigitalRootCalculationParameters(n, k))).thenReturn(5);
 
     uniqueDigitController.calculateUniqueDigit(n, k, userId);
 
@@ -73,7 +73,7 @@ class UniqueDigitControllerTest {
     final long userId = 44;
 
     when(userRepository.findById(userId)).thenReturn(Optional.empty());
-    when(calculator.calculate(n, k)).thenReturn(5);
+    when(calculator.calculate(new DigitalRootCalculationParameters(n, k))).thenReturn(5);
 
     uniqueDigitController.calculateUniqueDigit(n, k, userId);
 
@@ -84,7 +84,7 @@ class UniqueDigitControllerTest {
   void calculateUniqueDigit_UserIdNotProvided_CalculationShouldNotBeAssociatedWithAnyUser() {
     final String n = "1234";
     final int k = 2;
-    when(calculator.calculate(n, k)).thenReturn(5);
+    when(calculator.calculate(new DigitalRootCalculationParameters(n, k))).thenReturn(5);
 
     uniqueDigitController.calculateUniqueDigit(n, k, null);
 
@@ -95,7 +95,7 @@ class UniqueDigitControllerTest {
   void calculateUniqueDigit_Success_ShouldSaveCalculationInDatabase() {
     final String n = "1234";
     final int k = 2;
-    when(calculator.calculate(n, k)).thenReturn(5);
+    when(calculator.calculate(new DigitalRootCalculationParameters(n, k))).thenReturn(5);
 
     uniqueDigitController.calculateUniqueDigit(n, k, null);
 
