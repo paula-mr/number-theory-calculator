@@ -1,0 +1,1233 @@
+{
+	"info": {
+		"_postman_id": "831eafdd-514d-40b3-b6b6-3309dd753855",
+		"name": "UniqueDigit",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create user",
+			"item": [
+				{
+					"name": "Without email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9251e4a6-3734-4238-a28b-3ad507e5f5f4",
+								"exec": [
+									"pm.test(\"Status code is 400.\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body should have an email field with the expected message.\", function () {\r",
+									"    var json = pm.response.json();\r",
+									"    pm.expect(json.email).to.eql(\"Email can't be empty or null.\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": null,\r\n    \"name\": \"testei\",\r\n    \"publicKey\": \"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAskZ+N9l2eV2z8aQvpi+3v0REQ1IpnyqQ3pBUl3Do2xQjs6XD7D3W5Tdjp0h4h7ISxgZz0xg5r51GRQ5jynLUDGRnFnmvpgdUqVCJNP3vWobCPMrbo0tWk+Giw3ssJ90uXzteU9vptMkagB/FOZYX80e0hDK8eNUUoq4xM0H6LJHJbV8y0Ukcs/7JSwZkoO0huBVJZWPV/52WmU0ftv0U5U1DY8WUSPrDvSGt9fRAGiTfuqNvEYw1Pkx++WUwq0XDE/6zPJ/jhtm6yuGzcnKhEjtzbLTfexR8zcQbg5IYexWcl8CpC2vWCc2M0TdKbMN1o8J2ECxK6bKpcul4NDInBwIDAQAB\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Valid data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d4e0714e-faf7-4f8a-a384-4317be499f68",
+								"exec": [
+									"pm.test(\"Status code is 201.\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Original email should not be in the response, as it should be encrypted.\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.email).not.to.include(\"diasbertoluiz@gmail.com\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Original name should not be in the response, as it should be encrypted.\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.name).not.to.include(\"Luiz\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response should have an id.\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.id).not.to.eql(null);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"diasbertoluiz@gmail.com\",\r\n    \"name\": \"Luiz\",\r\n    \"publicKey\": \"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAskZ+N9l2eV2z8aQvpi+3v0REQ1IpnyqQ3pBUl3Do2xQjs6XD7D3W5Tdjp0h4h7ISxgZz0xg5r51GRQ5jynLUDGRnFnmvpgdUqVCJNP3vWobCPMrbo0tWk+Giw3ssJ90uXzteU9vptMkagB/FOZYX80e0hDK8eNUUoq4xM0H6LJHJbV8y0Ukcs/7JSwZkoO0huBVJZWPV/52WmU0ftv0U5U1DY8WUSPrDvSGt9fRAGiTfuqNvEYw1Pkx++WUwq0XDE/6zPJ/jhtm6yuGzcnKhEjtzbLTfexR8zcQbg5IYexWcl8CpC2vWCc2M0TdKbMN1o8J2ECxK6bKpcul4NDInBwIDAQAB\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Without name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "82ed85b2-2113-4873-95be-3650a536a049",
+								"exec": [
+									"pm.test(\"Status code is 400.\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body should have an name field with the expected message.\", function () {\r",
+									"    var json = pm.response.json();\r",
+									"    pm.expect(json.name).to.eql(\"Name can't be empty or null.\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"teste@teste.com\",\r\n    \"name\": \"\",\r\n    \"publicKey\": \"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAskZ+N9l2eV2z8aQvpi+3v0REQ1IpnyqQ3pBUl3Do2xQjs6XD7D3W5Tdjp0h4h7ISxgZz0xg5r51GRQ5jynLUDGRnFnmvpgdUqVCJNP3vWobCPMrbo0tWk+Giw3ssJ90uXzteU9vptMkagB/FOZYX80e0hDK8eNUUoq4xM0H6LJHJbV8y0Ukcs/7JSwZkoO0huBVJZWPV/52WmU0ftv0U5U1DY8WUSPrDvSGt9fRAGiTfuqNvEYw1Pkx++WUwq0XDE/6zPJ/jhtm6yuGzcnKhEjtzbLTfexR8zcQbg5IYexWcl8CpC2vWCc2M0TdKbMN1o8J2ECxK6bKpcul4NDInBwIDAQAB\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Without public key",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f2bd365a-e037-4f62-b694-7abbdf753dd8",
+								"exec": [
+									"pm.test(\"Status code is 400.\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body should have an publicKey field with the expected message.\", function () {\r",
+									"    var json = pm.response.json();\r",
+									"    pm.expect(json.publicKey).to.eql(\"Public key can't be empty or null.\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"teste@teste.com\",\r\n    \"name\": \"testei\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "With invalid public key",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0244a4d5-2d32-4d9b-8e49-6e15b2cb18f7",
+								"exec": [
+									"pm.test(\"Status code is 400.\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body should have a message stating that the public key is invalid.\", function () {\r",
+									"    var json = pm.response.json();\r",
+									"    pm.expect(json.message).to.eql(\"Provided public key is invalid.\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "7db305db-2571-4628-b4e0-eb12f9ce4b0f",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"teste@teste.com\",\r\n    \"name\": \"testei\",\r\n    \"publicKey\": \"kkkkkk\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Requests that create users",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Get user by id",
+			"item": [
+				{
+					"name": "Non-existent user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "739615eb-f823-4376-8e5c-a9f792bc123b",
+								"exec": [
+									"pm.test(\"Status code is 404.\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is null.\", function() {\r",
+									"    pm.response.to.not.have.body();\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/40000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"40000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b10b8153-21d6-4b8d-83c3-df0f60c60695",
+								"exec": [
+									"pm.test(\"Status code is 400.\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/invalidString",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"invalidString"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Existing user",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "37b25737-f80a-4bde-a8f9-c3b87b073c68",
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: 'http://localhost:8080/users',\r",
+									"    method: 'POST',\r",
+									"    header: {\r",
+									"        'Accept': 'application/json',\r",
+									"        'Content-Type': 'application/json;charset=UTF-8'\r",
+									"    },\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            email: \"diasbertoluiz@gmail.com\",\r",
+									"            name: \"Luiz\",\r",
+									"            publicKey: \"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAskZ+N9l2eV2z8aQvpi+3v0REQ1IpnyqQ3pBUl3Do2xQjs6XD7D3W5Tdjp0h4h7ISxgZz0xg5r51GRQ5jynLUDGRnFnmvpgdUqVCJNP3vWobCPMrbo0tWk+Giw3ssJ90uXzteU9vptMkagB/FOZYX80e0hDK8eNUUoq4xM0H6LJHJbV8y0Ukcs/7JSwZkoO0huBVJZWPV/52WmU0ftv0U5U1DY8WUSPrDvSGt9fRAGiTfuqNvEYw1Pkx++WUwq0XDE/6zPJ/jhtm6yuGzcnKhEjtzbLTfexR8zcQbg5IYexWcl8CpC2vWCc2M0TdKbMN1o8J2ECxK6bKpcul4NDInBwIDAQAB\"\r",
+									"        })\r",
+									"    }\r",
+									"}, function (err, response) {\r",
+									"    var jsonData = response.json();\r",
+									"    pm.collectionVariables.set(\"idToGet\", jsonData.id);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "7754e38d-fffd-4f35-9c8b-f833157aa690",
+								"exec": [
+									"pm.test(\"Status code is 200.\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body contains an email.\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.email).not.to.eql(null);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body contains a name.\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.name).not.to.eql(null);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body contains an id.\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.id).not.to.eql(null);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body contains a public key.\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.publicKey).not.to.eql(null);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/{{idToGet}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"{{idToGet}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Should associate unique digit calculations with the user",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "42f3c20a-ebda-4476-b654-25aad5c18d1f",
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: 'http://localhost:8080/users',\r",
+									"    method: 'POST',\r",
+									"    header: {\r",
+									"        'Accept': 'application/json',\r",
+									"        'Content-Type': 'application/json;charset=UTF-8'\r",
+									"    },\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            email: \"diasbertoluiz@gmail.com\",\r",
+									"            name: \"Luiz\",\r",
+									"            publicKey: \"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAskZ+N9l2eV2z8aQvpi+3v0REQ1IpnyqQ3pBUl3Do2xQjs6XD7D3W5Tdjp0h4h7ISxgZz0xg5r51GRQ5jynLUDGRnFnmvpgdUqVCJNP3vWobCPMrbo0tWk+Giw3ssJ90uXzteU9vptMkagB/FOZYX80e0hDK8eNUUoq4xM0H6LJHJbV8y0Ukcs/7JSwZkoO0huBVJZWPV/52WmU0ftv0U5U1DY8WUSPrDvSGt9fRAGiTfuqNvEYw1Pkx++WUwq0XDE/6zPJ/jhtm6yuGzcnKhEjtzbLTfexR8zcQbg5IYexWcl8CpC2vWCc2M0TdKbMN1o8J2ECxK6bKpcul4NDInBwIDAQAB\"\r",
+									"        })\r",
+									"    }\r",
+									"}, function (err, response) {\r",
+									"    var jsonData = response.json();\r",
+									"    pm.collectionVariables.set(\"idToGet\", jsonData.id);\r",
+									"\r",
+									"    pm.sendRequest({\r",
+									"        url: 'http://localhost:8080/unique-digit?userId=' + jsonData.id + '&n=99&k=1',\r",
+									"        method: 'GET',\r",
+									"        header: {\r",
+									"            'Accept': 'application/json',\r",
+									"            'Content-Type': 'application/json;charset=UTF-8'\r",
+									"        }\r",
+									"    }, function(err, response) {\r",
+									"    });\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "525691aa-8d05-4d26-9f85-7934ea5d9552",
+								"exec": [
+									"pm.test(\"Status code is 200.\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body contains a unique digit calculated object with the n provided as argument previously.\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var uniqueDigitCalculation = jsonData.uniqueDigitsCalculated[0];\r",
+									"    pm.expect(uniqueDigitCalculation.n).to.eql(\"99\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body contains a unique digit calculated object with the k provided as argument previously.\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var uniqueDigitCalculation = jsonData.uniqueDigitsCalculated[0];\r",
+									"    pm.expect(uniqueDigitCalculation.k).to.eql(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body contains a unique digit calculated object with the expected result.\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var uniqueDigitCalculation = jsonData.uniqueDigitsCalculated[0];\r",
+									"    pm.expect(uniqueDigitCalculation.result).to.eql(9);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/{{idToGet}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"{{idToGet}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Edit user",
+			"item": [
+				{
+					"name": "Non-existent user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e20303a3-27f4-405e-9f97-6464bbcd76f4",
+								"exec": [
+									"pm.test(\"Status code is 404.\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is null.\", function() {\r",
+									"    pm.response.to.not.have.body();\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"diasbertoluiz@gmail.com\",\r\n    \"name\": \"luiz berto\",\r\n    \"publicKey\": \"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAskZ+N9l2eV2z8aQvpi+3v0REQ1IpnyqQ3pBUl3Do2xQjs6XD7D3W5Tdjp0h4h7ISxgZz0xg5r51GRQ5jynLUDGRnFnmvpgdUqVCJNP3vWobCPMrbo0tWk+Giw3ssJ90uXzteU9vptMkagB/FOZYX80e0hDK8eNUUoq4xM0H6LJHJbV8y0Ukcs/7JSwZkoO0huBVJZWPV/52WmU0ftv0U5U1DY8WUSPrDvSGt9fRAGiTfuqNvEYw1Pkx++WUwq0XDE/6zPJ/jhtm6yuGzcnKhEjtzbLTfexR8zcQbg5IYexWcl8CpC2vWCc2M0TdKbMN1o8J2ECxK6bKpcul4NDInBwIDAQAB\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/98765",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"98765"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "25d0ffdb-b756-489e-837c-6b92eb33d958",
+								"exec": [
+									"pm.test(\"Status code is 400.\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"diasbertoluiz@gmail.com\",\r\n    \"name\": \"luiz berto\",\r\n    \"publicKey\": \"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAskZ+N9l2eV2z8aQvpi+3v0REQ1IpnyqQ3pBUl3Do2xQjs6XD7D3W5Tdjp0h4h7ISxgZz0xg5r51GRQ5jynLUDGRnFnmvpgdUqVCJNP3vWobCPMrbo0tWk+Giw3ssJ90uXzteU9vptMkagB/FOZYX80e0hDK8eNUUoq4xM0H6LJHJbV8y0Ukcs/7JSwZkoO0huBVJZWPV/52WmU0ftv0U5U1DY8WUSPrDvSGt9fRAGiTfuqNvEYw1Pkx++WUwq0XDE/6zPJ/jhtm6yuGzcnKhEjtzbLTfexR8zcQbg5IYexWcl8CpC2vWCc2M0TdKbMN1o8J2ECxK6bKpcul4NDInBwIDAQAB\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/java",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"java"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Existing user with valid data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "514ae5c4-af5b-4e75-b07e-bd6638c09825",
+								"exec": [
+									"pm.test(\"Status code is 200.\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is not null.\", function() {\r",
+									"    pm.response.to.have.body();\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0e446a62-d38e-4878-9abc-dccca5bb78c3",
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: 'http://localhost:8080/users',\r",
+									"    method: 'POST',\r",
+									"    header: {\r",
+									"        'Accept': 'application/json',\r",
+									"        'Content-Type': 'application/json;charset=UTF-8'\r",
+									"    },\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            email: \"diasbertoluiz@gmail.com\",\r",
+									"            name: \"Luiz\",\r",
+									"            publicKey: \"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAskZ+N9l2eV2z8aQvpi+3v0REQ1IpnyqQ3pBUl3Do2xQjs6XD7D3W5Tdjp0h4h7ISxgZz0xg5r51GRQ5jynLUDGRnFnmvpgdUqVCJNP3vWobCPMrbo0tWk+Giw3ssJ90uXzteU9vptMkagB/FOZYX80e0hDK8eNUUoq4xM0H6LJHJbV8y0Ukcs/7JSwZkoO0huBVJZWPV/52WmU0ftv0U5U1DY8WUSPrDvSGt9fRAGiTfuqNvEYw1Pkx++WUwq0XDE/6zPJ/jhtm6yuGzcnKhEjtzbLTfexR8zcQbg5IYexWcl8CpC2vWCc2M0TdKbMN1o8J2ECxK6bKpcul4NDInBwIDAQAB\"\r",
+									"        })\r",
+									"    }\r",
+									"}, function (err, response) {\r",
+									"    var jsonData = response.json();\r",
+									"    pm.collectionVariables.set(\"idToEdit\", jsonData.id);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"diasbertoluiz@gmail.com\",\r\n    \"name\": \"luiz berto\",\r\n    \"publicKey\": \"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAskZ+N9l2eV2z8aQvpi+3v0REQ1IpnyqQ3pBUl3Do2xQjs6XD7D3W5Tdjp0h4h7ISxgZz0xg5r51GRQ5jynLUDGRnFnmvpgdUqVCJNP3vWobCPMrbo0tWk+Giw3ssJ90uXzteU9vptMkagB/FOZYX80e0hDK8eNUUoq4xM0H6LJHJbV8y0Ukcs/7JSwZkoO0huBVJZWPV/52WmU0ftv0U5U1DY8WUSPrDvSGt9fRAGiTfuqNvEYw1Pkx++WUwq0XDE/6zPJ/jhtm6yuGzcnKhEjtzbLTfexR8zcQbg5IYexWcl8CpC2vWCc2M0TdKbMN1o8J2ECxK6bKpcul4NDInBwIDAQAB\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/{{idToEdit}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"{{idToEdit}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Existing user with invalid data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a27efe73-a1eb-4c70-95d9-f7d70656f37e",
+								"exec": [
+									"pm.test(\"Status code is 400.\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b3f7feeb-bdd7-448f-80b3-b17e39be79f4",
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: 'http://localhost:8080/users',\r",
+									"    method: 'POST',\r",
+									"    header: {\r",
+									"        'Accept': 'application/json',\r",
+									"        'Content-Type': 'application/json;charset=UTF-8'\r",
+									"    },\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            email: \"diasbertoluiz@gmail.com\",\r",
+									"            name: \"Luiz\",\r",
+									"            publicKey: \"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAskZ+N9l2eV2z8aQvpi+3v0REQ1IpnyqQ3pBUl3Do2xQjs6XD7D3W5Tdjp0h4h7ISxgZz0xg5r51GRQ5jynLUDGRnFnmvpgdUqVCJNP3vWobCPMrbo0tWk+Giw3ssJ90uXzteU9vptMkagB/FOZYX80e0hDK8eNUUoq4xM0H6LJHJbV8y0Ukcs/7JSwZkoO0huBVJZWPV/52WmU0ftv0U5U1DY8WUSPrDvSGt9fRAGiTfuqNvEYw1Pkx++WUwq0XDE/6zPJ/jhtm6yuGzcnKhEjtzbLTfexR8zcQbg5IYexWcl8CpC2vWCc2M0TdKbMN1o8J2ECxK6bKpcul4NDInBwIDAQAB\"\r",
+									"        })\r",
+									"    }\r",
+									"}, function (err, response) {\r",
+									"    var jsonData = response.json();\r",
+									"    pm.collectionVariables.set(\"idToEdit\", jsonData.id);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": null,\r\n    \"name\": null,\r\n    \"publicKey\": \"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAskZ+N9l2eV2z8aQvpi+3v0REQ1IpnyqQ3pBUl3Do2xQjs6XD7D3W5Tdjp0h4h7ISxgZz0xg5r51GRQ5jynLUDGRnFnmvpgdUqVCJNP3vWobCPMrbo0tWk+Giw3ssJ90uXzteU9vptMkagB/FOZYX80e0hDK8eNUUoq4xM0H6LJHJbV8y0Ukcs/7JSwZkoO0huBVJZWPV/52WmU0ftv0U5U1DY8WUSPrDvSGt9fRAGiTfuqNvEYw1Pkx++WUwq0XDE/6zPJ/jhtm6yuGzcnKhEjtzbLTfexR8zcQbg5IYexWcl8CpC2vWCc2M0TdKbMN1o8J2ECxK6bKpcul4NDInBwIDAQAB\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/{{idToEdit}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"{{idToEdit}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Delete user",
+			"item": [
+				{
+					"name": "Existing user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f844a030-7f5b-4b2d-85a8-dd728d7b1c2b",
+								"exec": [
+									"pm.test(\"Status code is 204.\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "00edfde8-c890-4623-91e7-4198437d342a",
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: 'http://localhost:8080/users',\r",
+									"    method: 'POST',\r",
+									"    header: {\r",
+									"        'Accept': 'application/json',\r",
+									"        'Content-Type': 'application/json;charset=UTF-8'\r",
+									"    },\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            email: \"diasbertoluiz@gmail.com\",\r",
+									"            name: \"Luiz\",\r",
+									"            publicKey: \"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAskZ+N9l2eV2z8aQvpi+3v0REQ1IpnyqQ3pBUl3Do2xQjs6XD7D3W5Tdjp0h4h7ISxgZz0xg5r51GRQ5jynLUDGRnFnmvpgdUqVCJNP3vWobCPMrbo0tWk+Giw3ssJ90uXzteU9vptMkagB/FOZYX80e0hDK8eNUUoq4xM0H6LJHJbV8y0Ukcs/7JSwZkoO0huBVJZWPV/52WmU0ftv0U5U1DY8WUSPrDvSGt9fRAGiTfuqNvEYw1Pkx++WUwq0XDE/6zPJ/jhtm6yuGzcnKhEjtzbLTfexR8zcQbg5IYexWcl8CpC2vWCc2M0TdKbMN1o8J2ECxK6bKpcul4NDInBwIDAQAB\"\r",
+									"        })\r",
+									"    }\r",
+									"}, function (err, response) {\r",
+									"    var jsonData = response.json();\r",
+									"    pm.collectionVariables.set(\"idToDelete\", jsonData.id);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/{{idToDelete}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"{{idToDelete}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Non-existent user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "560aefcf-e98d-4442-ae0f-a5a7031ca3d1",
+								"exec": [
+									"pm.test(\"Status code is 404.\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is null.\", function() {\r",
+									"    pm.response.to.not.have.body();\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/5468767",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"5468767"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4bb5182c-815f-4020-b0a3-c796855d4310",
+								"exec": [
+									"pm.test(\"Status code is 400.\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/java",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"java"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Calculate unique digit",
+			"item": [
+				{
+					"name": "N=9 and k=1 should return 9",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "579b85fa-e52a-4bdc-b9fd-364aa91c9abd",
+								"exec": [
+									"pm.test(\"Response is 9\", function () {\r",
+									"    pm.expect(pm.response.text()).to.eql(\"9\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/unique-digit?n=9&k=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unique-digit"
+							],
+							"query": [
+								{
+									"key": "n",
+									"value": "9"
+								},
+								{
+									"key": "k",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Negative n should return bad request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "60af0a44-84f9-4248-95ff-89609564957c",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/unique-digit?n=-44&k=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unique-digit"
+							],
+							"query": [
+								{
+									"key": "n",
+									"value": "-44"
+								},
+								{
+									"key": "k",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "0 n should return bad request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "52929a00-e527-4c68-86fa-9e26dfb752e1",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/unique-digit?n=0&k=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unique-digit"
+							],
+							"query": [
+								{
+									"key": "n",
+									"value": "0"
+								},
+								{
+									"key": "k",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Negative k should return bad request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3a25d83b-3767-4745-87df-35573d427d86",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/unique-digit?n=55&k=-1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unique-digit"
+							],
+							"query": [
+								{
+									"key": "n",
+									"value": "55"
+								},
+								{
+									"key": "k",
+									"value": "-1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "0 k should return bad request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "06668add-d037-49aa-85e6-51bb80d5b798",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/unique-digit?n=55&k=-1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unique-digit"
+							],
+							"query": [
+								{
+									"key": "n",
+									"value": "55"
+								},
+								{
+									"key": "k",
+									"value": "-1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "k larger than 10^5 should return bad request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "88c481cd-a0aa-434d-8649-01e28696e8b7",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/unique-digit?n=55&k=100001",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"unique-digit"
+							],
+							"query": [
+								{
+									"key": "n",
+									"value": "55"
+								},
+								{
+									"key": "k",
+									"value": "100001"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "63cce912-13b4-445c-b536-f01e3e1f57f0",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "1e64a1ea-87b2-46cb-9619-eff73bbd4bad",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "2ed4f143-3201-4273-9fbf-ca405b2de7f5",
+			"key": "idToEdit",
+			"value": "null"
+		},
+		{
+			"id": "ae0da3bd-5334-477d-9631-db6d3e4e4906",
+			"key": "idToDelete",
+			"value": "null"
+		},
+		{
+			"id": "6abd722b-ee39-434d-8064-03a53ada9d66",
+			"key": "idToGet",
+			"value": "null"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
