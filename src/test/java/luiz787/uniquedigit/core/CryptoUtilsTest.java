@@ -1,5 +1,6 @@
 package luiz787.uniquedigit.core;
 
+import luiz787.uniquedigit.core.user.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,6 +1,7 @@
 package luiz787.uniquedigit.core;
 
 import lombok.extern.log4j.Log4j2;
+import luiz787.uniquedigit.core.user.User;
 import luiz787.uniquedigit.exception.CryptoException;
 import org.springframework.stereotype.Component;
 
