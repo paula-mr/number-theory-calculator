@@ -2,7 +2,7 @@ package luiz787.uniquedigit.core.user;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import luiz787.uniquedigit.core.digitalroot.DigitalRootCalculation;
+import luiz787.uniquedigit.core.uniquedigit.UniqueDigitCalculation;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -45,13 +45,13 @@ public class User {
 
   @ApiModelProperty(value = "List of calculated unique digits")
   @OneToMany
-  private List<DigitalRootCalculation> uniqueDigitsCalculated;
+  private List<UniqueDigitCalculation> uniqueDigitsCalculated;
 
   public User() {
     uniqueDigitsCalculated = new ArrayList<>();
   }
 
-  public void addUniqueDigit(final DigitalRootCalculation uniqueDigit) {
+  public void addUniqueDigit(final UniqueDigitCalculation uniqueDigit) {
     this.uniqueDigitsCalculated.add(uniqueDigit);
   }
 

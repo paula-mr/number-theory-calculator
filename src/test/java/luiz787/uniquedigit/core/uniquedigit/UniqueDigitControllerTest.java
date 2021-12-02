@@ -1,4 +1,4 @@
-package luiz787.uniquedigit.core.digitalroot;
+package luiz787.uniquedigit.core.uniquedigit;
 
 import luiz787.uniquedigit.core.user.User;
 import luiz787.uniquedigit.core.user.UserRepository;
@@ -20,9 +20,9 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 class UniqueDigitControllerTest {
 
-  @Mock private DigitalRootCalculator calculator;
+  @Mock private UniqueDigitCalculator calculator;
   @Mock private UserRepository userRepository;
-  @Mock private DigitalRootCalculationRepository calculationRepository;
+  @Mock private UniqueDigitCalculationRepository calculationRepository;
   private UniqueDigitController uniqueDigitController;
 
   @BeforeEach
@@ -36,7 +36,7 @@ class UniqueDigitControllerTest {
   void calculateUniqueDigit_Success_HttpStatusShouldBe200() {
     final String n = "1234";
     final int k = 2;
-    when(calculator.calculate(new DigitalRootCalculationParameters(n, k))).thenReturn(5);
+    when(calculator.calculate(new UniqueDigitCalculationParameters(n, k))).thenReturn(5);
 
     final var response = uniqueDigitController.calculateUniqueDigit(n, k, null);
     assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -46,7 +46,7 @@ class UniqueDigitControllerTest {
   void calculateUniqueDigit_Success_ResponseBodyShouldBeTheNumberReturnedByCalculator() {
     final String n = "1234";
     final int k = 2;
-    when(calculator.calculate(new DigitalRootCalculationParameters(n, k))).thenReturn(5);
+    when(calculator.calculate(new UniqueDigitCalculationParameters(n, k))).thenReturn(5);
 
     final var response = uniqueDigitController.calculateUniqueDigit(n, k, null);
     assertEquals(5, response.getBody());
@@ -58,12 +58,12 @@ class UniqueDigitControllerTest {
     final int k = 2;
     final long userId = 44;
     when(userRepository.findById(userId)).thenReturn(Optional.of(new User()));
-    when(calculator.calculate(new DigitalRootCalculationParameters(n, k))).thenReturn(5);
+    when(calculator.calculate(new UniqueDigitCalculationParameters(n, k))).thenReturn(5);
 
     uniqueDigitController.calculateUniqueDigit(n, k, userId);
 
     final var expectedUserToSave = new User();
-    expectedUserToSave.addUniqueDigit(DigitalRootCalculation.builder().n(n).k(k).result(5).build());
+    expectedUserToSave.addUniqueDigit(UniqueDigitCalculation.builder().n(n).k(k).result(5).build());
 
     verify(userRepository).save(expectedUserToSave);
   }
@@ -76,7 +76,7 @@ class UniqueDigitControllerTest {
     final long userId = 44;
 
     when(userRepository.findById(userId)).thenReturn(Optional.empty());
-    when(calculator.calculate(new DigitalRootCalculationParameters(n, k))).thenReturn(5);
+    when(calculator.calculate(new UniqueDigitCalculationParameters(n, k))).thenReturn(5);
 
     uniqueDigitController.calculateUniqueDigit(n, k, userId);
 
@@ -87,7 +87,7 @@ class UniqueDigitControllerTest {
   void calculateUniqueDigit_UserIdNotProvided_CalculationShouldNotBeAssociatedWithAnyUser() {
     final String n = "1234";
     final int k = 2;
-    when(calculator.calculate(new DigitalRootCalculationParameters(n, k))).thenReturn(5);
+    when(calculator.calculate(new UniqueDigitCalculationParameters(n, k))).thenReturn(5);
 
     uniqueDigitController.calculateUniqueDigit(n, k, null);
 
@@ -98,11 +98,11 @@ class UniqueDigitControllerTest {
   void calculateUniqueDigit_Success_ShouldSaveCalculationInDatabase() {
     final String n = "1234";
     final int k = 2;
-    when(calculator.calculate(new DigitalRootCalculationParameters(n, k))).thenReturn(5);
+    when(calculator.calculate(new UniqueDigitCalculationParameters(n, k))).thenReturn(5);
 
     uniqueDigitController.calculateUniqueDigit(n, k, null);
 
     verify(calculationRepository)
-        .save(DigitalRootCalculation.builder().n(n).k(k).result(5).build());
+        .save(UniqueDigitCalculation.builder().n(n).k(k).result(5).build());
   }
 }

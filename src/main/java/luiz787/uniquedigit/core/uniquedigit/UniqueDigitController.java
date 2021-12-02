@@ -1,4 +1,4 @@
-package luiz787.uniquedigit.core.digitalroot;
+package luiz787.uniquedigit.core.uniquedigit;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Log4j2
 public class UniqueDigitController {
 
-  private final DigitalRootCalculator calculator;
-  private final DigitalRootCalculationRepository repository;
+  private final UniqueDigitCalculator calculator;
+  private final UniqueDigitCalculationRepository repository;
   private final UserRepository userRepository;
 
   @GetMapping
@@ -36,9 +36,9 @@ public class UniqueDigitController {
       @RequestParam final String n,
       @RequestParam final int k,
       @RequestParam(required = false) final Long userId) {
-    final int result = calculator.calculate(new DigitalRootCalculationParameters(n, k));
+    final int result = calculator.calculate(new UniqueDigitCalculationParameters(n, k));
 
-    final var calculation = DigitalRootCalculation.builder().n(n).k(k).result(result).build();
+    final var calculation = UniqueDigitCalculation.builder().n(n).k(k).result(result).build();
     repository.save(calculation);
 
     if (userId != null) {

@@ -1,4 +1,4 @@
-package luiz787.uniquedigit.core.digitalroot;
+package luiz787.uniquedigit.core.uniquedigit;
 
 import luiz787.uniquedigit.core.LRUCache;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,15 +9,15 @@ import org.mockito.MockitoAnnotations;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class DigitalRootCalculatorTest {
+class UniqueDigitCalculatorTest {
 
-  private DigitalRootCalculator calculator;
-  @Mock private LRUCache<DigitalRootCalculationParameters, Integer> cache;
+  private UniqueDigitCalculator calculator;
+  @Mock private LRUCache<UniqueDigitCalculationParameters, Integer> cache;
 
   @BeforeEach
   public void setup() {
     MockitoAnnotations.initMocks(this);
-    calculator = new DigitalRootCalculator(cache);
+    calculator = new UniqueDigitCalculator(cache);
   }
 
   @Test
@@ -27,7 +27,7 @@ class DigitalRootCalculatorTest {
 
     assertThrows(
         IllegalArgumentException.class,
-        () -> calculator.calculateInternal(new DigitalRootCalculationParameters(n, k)),
+        () -> calculator.calculateInternal(new UniqueDigitCalculationParameters(n, k)),
         "n must be a numeric string between 1 and 10^1000000");
   }
 
@@ -38,7 +38,7 @@ class DigitalRootCalculatorTest {
 
     assertThrows(
         IllegalArgumentException.class,
-        () -> calculator.calculateInternal(new DigitalRootCalculationParameters(n, k)),
+        () -> calculator.calculateInternal(new UniqueDigitCalculationParameters(n, k)),
         "n must be a numeric string between 1 and 10^1000000");
   }
 
@@ -49,7 +49,7 @@ class DigitalRootCalculatorTest {
 
     assertThrows(
         IllegalArgumentException.class,
-        () -> calculator.calculateInternal(new DigitalRootCalculationParameters(n, k)),
+        () -> calculator.calculateInternal(new UniqueDigitCalculationParameters(n, k)),
         "k must be between 1 and 10^5");
   }
 
@@ -60,7 +60,7 @@ class DigitalRootCalculatorTest {
 
     assertThrows(
         IllegalArgumentException.class,
-        () -> calculator.calculateInternal(new DigitalRootCalculationParameters(n, k)),
+        () -> calculator.calculateInternal(new UniqueDigitCalculationParameters(n, k)),
         "k must be between 1 and 10^5");
   }
 
@@ -72,7 +72,7 @@ class DigitalRootCalculatorTest {
 
     assertThrows(
         IllegalArgumentException.class,
-        () -> calculator.calculateInternal(new DigitalRootCalculationParameters(n, k)),
+        () -> calculator.calculateInternal(new UniqueDigitCalculationParameters(n, k)),
         "k must be between 1 and 10^5");
   }
 
@@ -84,7 +84,7 @@ class DigitalRootCalculatorTest {
 
     assertThrows(
         IllegalArgumentException.class,
-        () -> calculator.calculateInternal(new DigitalRootCalculationParameters(n, k)),
+        () -> calculator.calculateInternal(new UniqueDigitCalculationParameters(n, k)),
         "n must be a numeric string between 1 and 10^1000000");
   }
 
@@ -96,7 +96,7 @@ class DigitalRootCalculatorTest {
 
     assertThrows(
         IllegalArgumentException.class,
-        () -> calculator.calculateInternal(new DigitalRootCalculationParameters(n, k)),
+        () -> calculator.calculateInternal(new UniqueDigitCalculationParameters(n, k)),
         "n must be a numeric string between 1 and 10^1000000");
   }
 
@@ -108,7 +108,7 @@ class DigitalRootCalculatorTest {
 
     assertThrows(
         IllegalArgumentException.class,
-        () -> calculator.calculateInternal(new DigitalRootCalculationParameters(n, k)),
+        () -> calculator.calculateInternal(new UniqueDigitCalculationParameters(n, k)),
         "n must be a numeric string between 1 and 10^1000000");
   }
 
@@ -117,7 +117,7 @@ class DigitalRootCalculatorTest {
     final String n = "1";
     final int k = 1;
 
-    assertEquals(1, calculator.calculateInternal(new DigitalRootCalculationParameters(n, k)));
+    assertEquals(1, calculator.calculateInternal(new UniqueDigitCalculationParameters(n, k)));
   }
 
   @Test
@@ -125,7 +125,7 @@ class DigitalRootCalculatorTest {
     final String n = "1";
     final int k = 2;
 
-    assertEquals(2, calculator.calculateInternal(new DigitalRootCalculationParameters(n, k)));
+    assertEquals(2, calculator.calculateInternal(new UniqueDigitCalculationParameters(n, k)));
   }
 
   @Test
@@ -133,7 +133,7 @@ class DigitalRootCalculatorTest {
     final String n = "9875";
     final int k = 4;
 
-    assertEquals(8, calculator.calculateInternal(new DigitalRootCalculationParameters(n, k)));
+    assertEquals(8, calculator.calculateInternal(new UniqueDigitCalculationParameters(n, k)));
   }
 
   @Test
@@ -141,6 +141,6 @@ class DigitalRootCalculatorTest {
     final String n = "18";
     final int k = 1;
 
-    assertEquals(9, calculator.calculateInternal(new DigitalRootCalculationParameters(n, k)));
+    assertEquals(9, calculator.calculateInternal(new UniqueDigitCalculationParameters(n, k)));
   }
 }

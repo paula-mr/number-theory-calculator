@@ -1,4 +1,4 @@
-package luiz787.uniquedigit.core.digitalroot;
+package luiz787.uniquedigit.core.uniquedigit;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +15,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class DigitalRootCalculation {
+public class UniqueDigitCalculation {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;

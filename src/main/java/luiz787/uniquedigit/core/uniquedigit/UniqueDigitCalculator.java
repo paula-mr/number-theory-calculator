@@ -1,4 +1,4 @@
-package luiz787.uniquedigit.core.digitalroot;
+package luiz787.uniquedigit.core.uniquedigit;
 
 import luiz787.uniquedigit.core.LRUCache;
 import org.springframework.stereotype.Component;
@@ -7,17 +7,17 @@ import java.math.BigInteger;
 import java.util.function.Function;
 
 @Component
-public class DigitalRootCalculator {
+public class UniqueDigitCalculator {
 
-  private final Function<DigitalRootCalculationParameters, Integer> calculateMemoized;
+  private final Function<UniqueDigitCalculationParameters, Integer> calculateMemoized;
 
-  public DigitalRootCalculator(final LRUCache<DigitalRootCalculationParameters, Integer> cache) {
+  public UniqueDigitCalculator(final LRUCache<UniqueDigitCalculationParameters, Integer> cache) {
     calculateMemoized = cache.memoize(this::calculateInternal);
   }
 
   /**
-   * Calculates the Digital Root of <code>p</code>, which is <code>n</code>, concatenated with
-   * itself <code>k</code> times. Uses a LRU cache for caching.
+   * Calculates the Digital Root (or unique digit) of <code>p</code>, which is <code>n</code>,
+   * concatenated with itself <code>k</code> times. Uses a LRU cache for caching.
    *
    * @param params an object wrapping <code>n</code> and <code>k</code>.
    * @return the digital root of <code>n</code> concatenated with itself <code>k</code> times, base
@@ -26,13 +26,13 @@ public class DigitalRootCalculator {
    *     <code>n</code> does not represent an integer.
    * @see <a href="https://en.wikipedia.org/wiki/Digital_root">Digital Root</a>
    */
-  public int calculate(final DigitalRootCalculationParameters params) {
+  public int calculate(final UniqueDigitCalculationParameters params) {
     return calculateMemoized.apply(params);
   }
 
   /**
-   * Calculates the Digital Root of <code>p</code>, which is <code>n</code>, concatenated with
-   * itself <code>k</code> times.
+   * Calculates the Digital Root (or unique digit) of <code>p</code>, which is <code>n</code>,
+   * concatenated with itself <code>k</code> times.
    *
    * @param params an object wrapping <code>n</code> and <code>k</code>.
    * @return the digital root of <code>n</code> concatenated with itself <code>k</code> times, base
@@ -41,7 +41,7 @@ public class DigitalRootCalculator {
    *     <code>n</code> does not represent an integer.
    * @see <a href="https://en.wikipedia.org/wiki/Digital_root">Digital Root</a>
    */
-  int calculateInternal(final DigitalRootCalculationParameters params) {
+  int calculateInternal(final UniqueDigitCalculationParameters params) {
     if (params.getK() < 1 || params.getK() > Math.pow(10, 5)) {
       throw new IllegalArgumentException("k must be between 1 and 10^5");
     }
@@ -51,8 +51,8 @@ public class DigitalRootCalculator {
 
     final BigInteger p = constructP(params.getN(), params.getK());
 
-    final int moduloNine = p.mod(BigInteger.valueOf(9L)).intValue();
-    return moduloNine == 0 ? 9 : moduloNine;
+    final int pModNine = p.mod(BigInteger.valueOf(9L)).intValue();
+    return pModNine == 0 ? 9 : pModNine;
   }
 
   private BigInteger constructP(final String n, final int k) {
