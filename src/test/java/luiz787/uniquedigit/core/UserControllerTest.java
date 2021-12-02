@@ -79,7 +79,8 @@ class UserControllerTest {
     when(cryptoUtils.encryptUserData(expectedUser)).thenReturn(expectedUser);
     when(userRepository.save(expectedUser)).thenReturn(expectedUser);
 
-    final var response = userController.create(new SaveUserDto("Teste", "test@email.com", "dummy key"));
+    final var response =
+        userController.create(new SaveUserDto("Teste", "test@email.com", "dummy key"));
 
     assertEquals(HttpStatus.CREATED, response.getStatusCode());
   }
@@ -96,7 +97,8 @@ class UserControllerTest {
     when(cryptoUtils.encryptUserData(any())).thenReturn(expectedUser);
     when(userRepository.save(expectedUser)).thenReturn(expectedUser);
 
-    final var response = userController.update(ID, new SaveUserDto("Teste", "test@email.com", "dummy key"));
+    final var response =
+        userController.update(ID, new SaveUserDto("Teste", "test@email.com", "dummy key"));
 
     assertEquals(HttpStatus.OK, response.getStatusCode());
   }
@@ -105,7 +107,8 @@ class UserControllerTest {
   void update_UserDoesNotExist_ShouldReturnHttpStatus404() {
     when(userRepository.findById(ID)).thenReturn(Optional.empty());
 
-    final var response = userController.update(ID, new SaveUserDto("Teste", "test@email.com", "dummy key"));
+    final var response =
+        userController.update(ID, new SaveUserDto("Teste", "test@email.com", "dummy key"));
 
     assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
   }

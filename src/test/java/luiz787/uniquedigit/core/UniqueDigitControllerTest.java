@@ -67,7 +67,8 @@ class UniqueDigitControllerTest {
   }
 
   @Test
-  void calculateUniqueDigit_UserIdProvidedButUserDoesNotExist_CalculationShouldNotBeAssociatedWithAnyUser() {
+  void
+      calculateUniqueDigit_UserIdProvidedButUserDoesNotExist_CalculationShouldNotBeAssociatedWithAnyUser() {
     final String n = "1234";
     final int k = 2;
     final long userId = 44;
@@ -99,6 +100,7 @@ class UniqueDigitControllerTest {
 
     uniqueDigitController.calculateUniqueDigit(n, k, null);
 
-    verify(calculationRepository).save(DigitalRootCalculation.builder().n(n).k(k).result(5).build());
+    verify(calculationRepository)
+        .save(DigitalRootCalculation.builder().n(n).k(k).result(5).build());
   }
 }

@@ -72,8 +72,8 @@ public class UserController {
       @PathVariable final long id, @RequestBody @Valid final SaveUserDto newUserData) {
     return userRepository
         .findById(id)
-        .map((existingUser) -> crypto.encryptUserData(User.fromSaveUserDtoAndId(newUserData, id)))
-        // .map(crypto::encryptUserData)
+        .map((existingUser) -> User.fromSaveUserDtoAndId(newUserData, id))
+        .map(crypto::encryptUserData)
         .map((userToSave) -> ResponseEntity.ok(userRepository.save(userToSave)))
         .orElseGet(() -> ResponseEntity.notFound().build());
   }

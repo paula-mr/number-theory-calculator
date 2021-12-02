@@ -90,7 +90,8 @@ class LRUCacheTest {
 
     addItemsToCache(memoizedFunction, 10); // Add 10 items to cause 0 to be evicted.
 
-    callMemoizedFunctionWithZeroTenTimes(memoizedFunction); // Call the memoized function with zero 10 more times
+    callMemoizedFunctionWithZeroTenTimes(
+        memoizedFunction); // Call the memoized function with zero 10 more times
 
     verify(originalFunction, times(2)).apply(0);
   }
