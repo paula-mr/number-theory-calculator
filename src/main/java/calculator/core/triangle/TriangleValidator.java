@@ -4,6 +4,14 @@ import calculator.core.LRUCache;
 
 import java.util.function.Function;
 
+ /**
+   * Validates if 3 numbers <code>a</code>, <code>b</code> and <code>c</code> can form a triangle
+   *
+   * @param validateMemoized allows the class to use cache for the validations.
+   * @return Wether the 3 numbers received in the parameters are valid to form a triangle or not.
+   * @throws IllegalArgumentException if <code>a</code>, <code>b</code> or <code>c</code> is out of bounds
+   * @see <a href="https://en.wikipedia.org/wiki/Triangle">Triangle</a>
+   */
 public class TriangleValidator {
 
     private final Function<TriangleValidationParameters, Boolean> validateMemoized;
