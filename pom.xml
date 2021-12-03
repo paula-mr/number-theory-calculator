@@ -11,7 +11,7 @@
     <groupId>luiz787_mibrahimfm_paula-mr_VictorGFM</groupId>
     <artifactId>numbertheorycalcuator</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>uniquedigit</name>
+    <name>numbertheorycalculator</name>
     <description>Number Theory Calculator</description>
 
     <properties>
