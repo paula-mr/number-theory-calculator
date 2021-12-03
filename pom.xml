@@ -8,11 +8,11 @@
         <version>2.3.3.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>luiz787</groupId>
-    <artifactId>uniquedigit</artifactId>
+    <groupId>luiz787_mibrahimfm_paula-mr_VictorGFM</groupId>
+    <artifactId>numbertheorycalcuator</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>uniquedigit</name>
-    <description>Unique Digit Project</description>
+    <description>Number Theory Calculator</description>
 
     <properties>
         <java.version>14</java.version>
