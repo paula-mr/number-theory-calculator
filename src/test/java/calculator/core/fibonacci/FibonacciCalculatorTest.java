@@ -1,13 +1,10 @@
 package calculator.core.fibonacci;
 
 import calculator.core.LRUCache;
-import calculator.core.uniquedigit.UniqueDigitCalculationParameters;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.AdditionalAnswers;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import static org.assertj.core.api.Assertions.assertThat;
