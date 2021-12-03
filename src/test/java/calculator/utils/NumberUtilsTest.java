@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Tag("UnitTest")
 public class NumberUtilsTest {
     @Test
-    void parse_GivenSIsInvalid_ShouldThrowIllegalArgumentException(final String s) {
+    void parse_GivenSIsInvalid_ShouldThrowIllegalArgumentException() {
         final String position = "invalid";
 
         assertThrows(
@@ -20,7 +20,7 @@ public class NumberUtilsTest {
     }
 
     @Test
-    void parse_GivenSIsNull_ShouldThrowIllegalArgumentException(final String s) {
+    void parse_GivenSIsNull_ShouldThrowIllegalArgumentException() {
         final String position = null;
 
         assertThrows(
@@ -30,7 +30,7 @@ public class NumberUtilsTest {
     }
 
     @Test
-    public void parse_GivenSIsEmpty_ShouldThrowIllegalArgumentException(final String s) {
+    public void parse_GivenSIsEmpty_ShouldThrowIllegalArgumentException() {
         final String position = "";
 
         assertThrows(
@@ -40,14 +40,14 @@ public class NumberUtilsTest {
     }
 
     @Test
-    public void parse_GivenSIsNegative_ShouldReturnNegativeNumber(final String s) {
+    public void parse_GivenSIsNegative_ShouldReturnNegativeNumber() {
         final String position = "-1";
 
         assertThat(NumberUtils.parse(position)).isEqualTo(-1);
     }
 
     @Test
-    public void parse_GivenSIsPositive_ShouldReturnPositiveNumber(final String s) {
+    public void parse_GivenSIsPositive_ShouldReturnPositiveNumber() {
         final String position = "5";
 
         assertThat(NumberUtils.parse(position)).isEqualTo(5);
