@@ -62,14 +62,14 @@ class FibonorialCalculatorTest {
 
     @Test
     void calculate_GivenPositionIsThree_ReturnsTwo() {
-        final String position = "1";
+        final String position = "3";
 
         assertThat(calculator.calculate(position)).isEqualTo(2);
     }
 
     @Test
-    void calculate_GivenPositionIsSix_ReturnsThirty() {
-        final String position = "6";
+    void calculate_GivenPositionIsFive_ReturnsThirty() {
+        final String position = "5";
 
         assertThat(calculator.calculate(position)).isEqualTo(30);
     }

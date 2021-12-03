@@ -53,8 +53,6 @@ public class FibonorialCalculator {
     }
 
     int fibonnaciN = this.fibonacciCalculator.calculate(String.valueOf(position));
-    int fibonacciNMinusOne = this.fibonacciCalculator.calculate(String.valueOf(position-1));
-
-    return fibonnaciN * this.calculateInternal(fibonacciNMinusOne);
+    return fibonnaciN * this.calculateInternal(position-1);
   }
 }
