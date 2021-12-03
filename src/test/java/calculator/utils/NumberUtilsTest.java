@@ -1,9 +1,12 @@
 package calculator.utils;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Tag;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
-
+@Tag("UnitTest")
 public class NumberUtilsTest {
     public void parse_GivenSIsInvalid_ShouldThrowIllegalArgumentException(final String s) {
         final String position = "invalid";

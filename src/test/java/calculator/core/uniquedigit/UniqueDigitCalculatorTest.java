@@ -2,6 +2,7 @@ package calculator.core.uniquedigit;
 
 import calculator.core.LRUCache;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -9,6 +10,7 @@ import org.mockito.MockitoAnnotations;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@Tag("UnitTest")
 class UniqueDigitCalculatorTest {
 
   private UniqueDigitCalculator calculator;

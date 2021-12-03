@@ -3,6 +3,7 @@ package calculator.core.uniquedigit;
 import calculator.core.user.User;
 import calculator.core.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -18,6 +19,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
+@Tag("IntegrationTest")
 class UniqueDigitControllerTest {
 
   @Mock private UniqueDigitCalculator calculator;
