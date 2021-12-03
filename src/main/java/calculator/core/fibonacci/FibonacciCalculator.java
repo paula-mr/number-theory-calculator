@@ -1,6 +1,7 @@
 package calculator.core.fibonacci;
 
 import calculator.core.LRUCache;
+import calculator.utils.NumberUtils;
 
 import java.util.function.Function;
 
@@ -12,7 +13,7 @@ public class FibonacciCalculator {
     }
 
     public int calculate(final String position) {
-        final int n = parse(position);
+        final int n = NumberUtils.parse(position);
         return calculateMemoized.apply(n);
     }
 
@@ -24,13 +25,5 @@ public class FibonacciCalculator {
             return n;
         }
         return calculateInternal(n - 1) + calculateInternal(n - 2);
-    }
-
-    private int parse(final String s) {
-        try {
-            return Integer.parseInt(s);
-        } catch (final NumberFormatException e) {
-            throw new IllegalArgumentException("the supplied string \"" + s + "\" is not a valid number");
-        }
     }
 }

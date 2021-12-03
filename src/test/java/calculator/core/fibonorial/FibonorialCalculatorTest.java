@@ -1,4 +1,4 @@
-package calculator.core.fibonacci;
+package calculator.core.fibonorial;
 
 import calculator.core.LRUCache;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,9 +12,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-class FibonacciCalculatorTest {
+class FibonorialCalculatorTest {
 
-    private FibonacciCalculator calculator;
+    private FibonorialCalculator calculator;
+
     @Mock
     private LRUCache<Integer, Integer> cache;
 
@@ -22,7 +23,7 @@ class FibonacciCalculatorTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         when(cache.memoize(any())).then(AdditionalAnswers.returnsFirstArg());
-        calculator = new FibonacciCalculator(cache);
+        calculator = new FibonorialCalculator(cache);
     }
 
     @Test
@@ -46,10 +47,10 @@ class FibonacciCalculatorTest {
     }
 
     @Test
-    void calculate_GivenPositionIsZero_ReturnsZero() {
+    void calculate_GivenPositionIsZero_ReturnsOne() {
         final String position = "0";
 
-        assertThat(calculator.calculate(position)).isEqualTo(0);
+        assertThat(calculator.calculate(position)).isEqualTo(1);
     }
 
     @Test
@@ -64,5 +65,12 @@ class FibonacciCalculatorTest {
         final String position = "3";
 
         assertThat(calculator.calculate(position)).isEqualTo(2);
+    }
+
+    @Test
+    void calculate_GivenPositionIsFive_ReturnsThirty() {
+        final String position = "5";
+
+        assertThat(calculator.calculate(position)).isEqualTo(30);
     }
 }
