@@ -26,5 +26,5 @@ jobs:
           directory: ./target/site/jacoco/
           env_vars: OS,PYTHON
           fail_ci_if_error: true
-          files: ./index.xml
+          files: ./jacoco.xml
           verbose: true
