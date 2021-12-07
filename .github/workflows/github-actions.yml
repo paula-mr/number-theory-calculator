@@ -17,7 +17,9 @@ jobs:
           java-version: "14"
           distribution: "adopt"
       - name: Build and test with Maven
-        run: mvn --batch-mode --update-snapshots verify test-coverage
+        run: mvn --batch-mode --update-snapshots verify
+      - name: Generate coverage report
+        run: mvn jacoco:report
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:
