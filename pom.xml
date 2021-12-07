@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>luiz787_mibrahimfm_paula-mr_VictorGFM</groupId>
-    <artifactId>numbertheorycalcuator</artifactId>
+    <artifactId>numbertheorycalculator</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>numbertheorycalculator</name>
     <description>Number Theory Calculator</description>
