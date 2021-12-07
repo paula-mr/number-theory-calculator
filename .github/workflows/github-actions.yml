@@ -18,13 +18,10 @@ jobs:
           distribution: "adopt"
       - name: Build and test with Maven
         run: mvn --batch-mode --update-snapshots verify
-      - name: Generate coverage report
-        run: mvn jacoco:report
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:
-          directory: ./target/site/jacoco/
           env_vars: OS,PYTHON
           fail_ci_if_error: true
-          files: ./jacoco.xml
+          files: ./target/site/jacoco/jacoco.xml
           verbose: true
