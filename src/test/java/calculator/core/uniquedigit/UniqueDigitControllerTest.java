@@ -19,7 +19,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-@Tag("IntegrationTest")
+@Tag("UnitTest")
 class UniqueDigitControllerTest {
 
   @Mock private UniqueDigitCalculator calculator;

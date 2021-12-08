@@ -6,10 +6,12 @@ import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,7 +20,6 @@ import java.util.List;
 @Data
 public class User {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
   @ApiModelProperty(value = "User id", required = false, example = "2")
   private Long id;
 
@@ -44,7 +45,7 @@ public class User {
   private String publicKey;
 
   @ApiModelProperty(value = "List of calculated unique digits")
-  @OneToMany
+  @OneToMany(fetch = FetchType.EAGER)
   private List<UniqueDigitCalculation> uniqueDigitsCalculated;
 
   public User() {
@@ -61,6 +62,16 @@ public class User {
     user.setEmail(saveUserDto.getEmail());
     user.setUniqueDigitsCalculated(Collections.emptyList());
     user.setPublicKey(saveUserDto.getPublicKey());
+    return user;
+  }
+
+  public static User fromCreateUserDto(final CreateUserDto createUserDto) {
+    final var user = new User();
+    user.setId(createUserDto.getId());
+    user.setName(createUserDto.getName());
+    user.setEmail(createUserDto.getEmail());
+    user.setUniqueDigitsCalculated(Collections.emptyList());
+    user.setPublicKey(createUserDto.getPublicKey());
     return user;
   }
 

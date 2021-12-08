@@ -50,8 +50,8 @@ public class UserController {
   @ApiOperation("Create a new user.")
   @ApiResponses({@ApiResponse(code = 201, message = "The created user.", response = User.class)})
   public ResponseEntity<User> create(
-      @RequestBody @Valid @ApiParam(value = "New user data") final SaveUserDto userToCreate) {
-    final User encryptedUser = crypto.encryptUserData(User.fromSaveUserDto(userToCreate));
+      @RequestBody @Valid @ApiParam(value = "New user data") final CreateUserDto userToCreate) {
+    final User encryptedUser = crypto.encryptUserData(User.fromCreateUserDto(userToCreate));
     final User createdUser = userRepository.save(encryptedUser);
 
     final URI location =
