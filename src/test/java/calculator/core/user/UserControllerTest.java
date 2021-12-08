@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 
-import javax.sql.DataSource;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,8 +33,6 @@ class UserControllerTest {
   @Autowired
   private CryptoUtils cryptoUtils;
   private UserController userController;
-  @Autowired
-  private DataSource dataSource;
 
   @BeforeEach
   public void setup() {
