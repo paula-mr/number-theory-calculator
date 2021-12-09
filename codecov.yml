@@ -1,0 +1,3 @@
+ignore:
+  - "src/main/java/calculator/config"
+  - "src/main/java/calculator/exception/"
